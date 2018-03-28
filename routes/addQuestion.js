@@ -7,8 +7,8 @@ var con = mysql.createConnection({
     host: "localhost",
     user: "root",
     password: "mysql12345XXX",
-    database:"project",
-    dateStrings: 'date'
+    database:"questionnaire",
+    dateStrings : 'date'
 });
 con.connect(function (err) {
     if (err) throw err;

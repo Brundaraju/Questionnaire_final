@@ -8,119 +8,17 @@
 </head>
 
 <body>
-<<<<<<< HEAD
 <div id="page">
     <div id="pagetop">
-        <img src="/images/purple-logo.jpg" style="width: 200px; height: 65px; float: right; position: absolute; right: 0px; ">
-        <form action="/admin" method="get" style="text-align: left;float: left; position: absolute; left: 0px; padding-top: 0px">
+        <img src="/images/purple-logo.jpg" style="width: 200px; height: 65px; float: left; position: absolute; left: 0px; ">
+        <form action="/admin" method="get" style="text-align: left;float: right; position: absolute; right: 0px; padding-top: 0px">
             <br>
-            <button type="submit" name="back" class="myButton" value="Back" style="font-size: large; border: none; box-shadow: none">&#9664; Back</button><br>
+            <button type="submit" name="back" class="myButton" value="Back" style="font-size: large; border: none; box-shadow: none; background:   #1C183D">&#9664; Back</button><br>
         </form>
         <p style="text-align: center; padding-top: 15px; font-size: large;position: inherit">ADMIN</p>
         <p style="text-align: center; padding-top: 10px; font-size: medium;position: inherit">HUMAN RESOURCES DEPARTMENT</p>
 
     </div>
-=======
-<div style="display: block; font-size: 0px; width : 100%;  white-space: nowrap; overflow: hidden; background-size: 100% 100%; ">
-    <div style="display: inline-block; height: auto;">
-        <img src="/images/purple-logo.jpg" alt="" />
-    </div>
-    <div style="display: inline-block;">
-        <img style="width: inherit; " src="/images/logo.jpg" alt="" />
-    </div>
-</div>
-<div class="center">
-    <form action="/admin" method="get" style="padding-left: 0px;">
-        <br>
-        <button type="submit" name="back" class="myButton" value="Back">Back</button><br>
-    </form>
-    <br><br>
-    <h1 style="font-size: 30px; color:  #07144B; align-content: center">1. Click to Add questions  <button onclick="add()" class="myButton">Add</button></h1>
-    <br><br>
-    <form action="/admin/<%=dept%>" method="get" class="elegant-aero">
-        <p id="add_question" style="display: none; font-family: 'Adobe Caslon Pro'; font-size: large; color: black">Add Question<br>
-            <textarea required="required" style=" font-size: large; color: black" placeholder="Enter Question here..." rows="4" cols="50" name="question"></textarea><br>
-
-            <label style=" font-size: large; color: black" for="option1">Option 1 :
-                <input type="text"  name="option1" required="required">
-            </label>
-            <label style=" font-size: large; color: black" for="option2">Option 2 :
-                <input type="text" name="option2" required="required">
-            </label>
-            <label style=" font-size: large; color: black" for="option3">Option 3 :
-                <input type="text" name="option3" required="required">
-            </label>
-            <label style=" font-size: large; color: black" for="option4">Option 4 :
-                <input type="text" name="option4" required="required">
-            </label>
-            <label style=" font-size: large; color: black" for="answer">Answer &nbsp;&nbsp;:
-                <select  style=" font-size: large; color: black" type="text" name="answer" class="form-style-5" required="required">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-
-                </select>
-            </label>
-            <!--<label for="pic">Upload an image :-->
-                <!--<input type="file" name="pic" accept="image/*" >-->
-            <!--</label>-->
-            <button type="submit" onclick="display()" class="myButton">Add Questions</button>
-        </p>
-    </form>
-    <script>
-        function display() {
-            document.getElementById("success_message").innerHTML = "Action Successful";
-            document.getElementById("success_message").style.display = 'block';
-            // window.location = "https://www.google.co.in";
-        }
-        function add() {
-            document.getElementById("add_question").style.display = 'block';
-        }
-        function search() {
-            if(document.getElementById("search").value === "")
-            {
-                document.getElementById("searchNotify").style.display = "block";
-                document.getElementById("searchNotify").innerHTML = "Search is Empty";
-                document.getElementById("tableMain").style.display = "block";
-                document.getElementById("tableSearch").style.display = "none";
-            }
-            else
-            {
-                document.getElementById("tableMain").style.display = "none";
-                document.getElementById("tableSearch").style.display = "block";
-                document.getElementById("searchNotify").style.display = "none";
-            }
-        }
-    </script>
-
-    <p id="demo"></p>
-    <p id="demo1"></p>
-    <br><br>
-    <h1 style="font-size: 30px; color:  #07144B">2. Click to Delete questions   <a href="/admin/questionlist/<%=dept%>" name="ondelete" class="myButton">Delete </a> </h1>
-    <br><br>
-
-    <br><br>
-    <h1 id="reportP" style="font-size: 30px; color:  #07144B">3.Generate Report</h1>
-    <br><br>
-
-    <form action="/adminDayReport/<%=dept%>" method="get" target="_blank" style="position: relative; text-align: center">
-        <label style="font-size: large; color: #07144B">From :</label>
-        <input type="date" id="seldate" name="seldate"  class="Button" style="width: 30%;">
-
-        </input>&nbsp;&nbsp;
-        <label style="font-size: large; color: #07144B">To :</label>
-        <input type="date" id="seldateto" name="seldateto"  class="Button" style="width: 30%;">
-
-        </input><br><br>
-        <button type="submit" value="Go" name="goButton" class="myButton">Go</button>
-
-    </form>
-    <br><br>
-    <br><br>
-
-    <h1 style="font-size: 30px; color: #07144B">4. List Of the Attendees</h1><br><br>
->>>>>>> 509de12144ba348b30861d077c7ff8669c5d940f
 
     <div id="main">
         <div class="content">
@@ -159,102 +57,25 @@
                     }
                 </script>
 
-<<<<<<< HEAD
                 <p id="demo"></p>
                 <p id="demo1"></p>
                 <br><br>
                 <h2 style="color:  black; font-size: 22px">2.CLICK TO VIEW / DELETE QUESTIONS --->     <a href="/admin/questionlist/<%=dept%>" name="ondelete">Delete </a> </h2>
                 <br><br>
-=======
-    <%
-    if(searchCount==0 && searchAttempt == 0){
-    %>
-    <br><br>
-    <form action="/admin/<%=dept%>" method="get">
-        <table border="1" id="tableMain" class="responstable">
-            <tr>
-                <td><b>Select</b></td>
-                <td><b>Date</b></td>
-                <td><b>Candidate name,Age,contact</b></td>
-                <td><b>Qualification & year of passing</b></td>
-                <td><b>Experience in years</b></td>
-                <td><b>Present/Last job</b></td>
-                <td><b>Present salary</b></td>
-                <td><b>Expected salary</b></td>
-                <td><b>Score</b></td>
->>>>>>> 509de12144ba348b30861d077c7ff8669c5d940f
 
                 <h2 style=" font-size: 22px ;color: black">3.CLICK TO VIEW LIST OF ATTENDEES --->      <a href="/admin/attendeeList/<%=dept%>" name="onshow" >Show </a> </h2><br><br>
             </div>
         </div>
-<<<<<<< HEAD
         <div class="clear">&nbsp;</div>
     </div>
     <div id="footer">
         <p>
-            Msrmh quiz admin page.
+           
         </p>
     </div>
-=======
-    </form>
-    <%
-    }
-    else if(searchCount==0 && searchAttempt == 1){
-        %>
-        <p id="noresult">No Result Found</p>
-    <%
-    }
-    else {
-    %>
-    <form action="/admin/<%=dept%>" method="get">
-    <table border="1" id="tableSearch" class="responstable">
-        <tr>
-            <td><b>Select</b></td>
-            <td><b>Date</b></td>
-            <td><b>Candidate name,Age,contact</b></td>
-            <td><b>Qualification & year of passing</b></td>
-            <td><b>Experience in years</b></td>
-            <td><b>Present/Last job</b></td>
-            <td><b>Present salary</b></td>
-            <td><b>Expected salary</b></td>
-            <td><b>Score</b></td>
-        </tr>
-        <%
-        for(i=0;i<searchCount;i++){
-        %>
-        <tr>
-            <td><input type="checkbox" name="attendee" value="<%=aMobile[i]%>"/></td>
-            <td><%=sDate[i]%></td>
-            <td>Name: <%=sName[i]%><br>
-                Age: <%=sAge[i]%><br>
-                No: <%=sMobile[i]%><br>
-                Email: <%=sEmail[i]%></td>
-            <td><%=sQ[i]%><br>
-                KnC: <%=sKnc[i]%></td>
-            <td><%=sE[i]%></td>
-            <td><%=sJob[i]%></td>
-            <td><%=sSalaryp[i]%></td>
-            <td><%=sSalarye[i]%></td>
-            <td><a href="/admin/answerlist/<%=dept%>/<%=sMobile[i]%>"  target="_blank"> <p><u><%=sRes[i]%></u></p></a></td>
-        </tr>
-        <%
-        }
-        %>
-    </table>
-        <div style="text-align: center">
-            <input type="submit" class="myButton" value="Delete"/> <br><br>
-        </div>
-    </form>
-    <br><br>
-    <%
-    }
-    %>
->>>>>>> 509de12144ba348b30861d077c7ff8669c5d940f
 </div>
+<img src="/images/l1.jpg" style="width: 100%; height: 40px; padding-top: 13%">
 
 </body>
 </html>
-<<<<<<< HEAD
-=======
 
->>>>>>> 509de12144ba348b30861d077c7ff8669c5d940f

@@ -68,18 +68,17 @@ app.post('/adm', function (req, res, next) {
 });
 var con = mysql.createConnection({
     host: "localhost",
-<<<<<<< HEAD
-=======
-   
->>>>>>> 509de12144ba348b30861d077c7ff8669c5d940f
     user: "root",
     password: "mysql12345XXX",
-    database:"project"
+    database:"questionnaire",
+    dateStrings : 'date'
 });
-
 var arr = [];
 app.post('/usr', function (req, res, next) {
+    res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+    req.session.destroy();
     var arrlength;
+    var msg="";
     function show(callback) {
         con.query("SELECT * FROM dep;", function (err, results) {
             if (err) console.log("error encountered");
@@ -94,7 +93,8 @@ app.post('/usr', function (req, res, next) {
     show(function () {
         res.render('userform.ejs', {
             arr: arr,
-            arrlength: arrlength
+            arrlength: arrlength,
+            msg : msg
         });
     });
 });
@@ -135,7 +135,7 @@ app.post('/admin', urlencodedparser, function (req, res, next) {
 
             count = result2[0].count;
         });
-        con.query("select * from dep", function (err, result1) {
+        con.query("select * from dep;", function (err, result1) {
             if (err) throw err;
             console.log(result1);
 
@@ -361,29 +361,86 @@ app.post('/userform', urlencodedparser, function (req, res, next) {
     pswd = req.body.field5;
     dep = req.body.field4;
     req.session.dep=dep;
+    req.session.name = req.body.field1;
     console.log(dep);
+    var questionCount;
+
+    var arrlength;
+    var msg="";
+
+    con.query("SELECT * FROM dep;", function (err, results) {
+        if (err) console.log("error encountered");
+        for (var i = 0; i < results.length; i++)
+            arr[i] = results[i].depname;
+        arrlength = arr.length;
+
+    });
+
     con.query("select password from user", function (err, result, fields) {
         if (err) console.log("error encountered");
         userpassword = result[0].password;
         if (pswd === userpassword) {
-            con.query("insert into " + dep + " (name,mobile,email,age,qualifications,knc,experience,job,salaryp,salarye) values ('" + req.body.field1 + "','" + req.body.field3 + "','" + req.body.field2 + "','" + req.body.field13 + "','" + req.body.field6 +"\n "+ req.body.field7 +"\n "+req.body.field8+ "','" + req.body.field9 + "\n "+req.body.field15+"','" + req.body.field14 + "','" + req.body.field10 + "','" + req.body.field11 +"','"+ req.body.field12 + "')", function (err, result, fields) {
+            req.session.field1=req.body.field1;
+            req.session.field3=req.body.field3;
+            req.session.field2=req.body.field2;
+            req.session.field13=req.body.field13;
+            req.session.field6=req.body.field6;
+            req.session.field7=req.body.field7;
+            req.session.field8=req.body.field8;
+            req.session.field9=req.body.field9;
+            req.session.field15=req.body.field15;
+            req.session.field14=req.body.field14;
+            req.session.field10=req.body.field10;
+            req.session.field11=req.body.field11;
+            req.session.field12=req.body.field12;
+            req.session.number=req.body.field3;
+            //con.query("insert into " + dep + " (name,mobile,email,age,qualifications,knc,experience,job,salaryp,salarye) values ('" + req.body.field1 + "','" + req.body.field3 + "','" + req.body.field2 + "','" + req.body.field13 + "','" + req.body.field6 +"\n "+ req.body.field7 +"\n "+req.body.field8+ "','" + req.body.field9 + "\n "+req.body.field15+"','" + req.body.field14 + "','" + req.body.field10 + "','" + req.body.field11 +"','"+ req.body.field12 + "')", function (err, result, fields) {
 
-                if (err) console.log("error encountered");
-                req.session.number=req.body.field3;
-            });
+            //     if (err) console.log("error encountered");
+            //     req.session.number=req.body.field3;
+            // });
             var time, noques;
+            con.query("select count(*) as count from "+dep+"_question_list",function (err,result) {
+                if(err) console.log("error encountered");
+                questionCount = result[0].count;
+
+
+            });
             con.query("select timelimit,questions from user", function (err, result, fields) {
                 if (err) console.log("error encountered");
                 time = result[0].timelimit;
                 noques = result[0].questions;
-                console.log("------------------------------------------")
-                res.redirect('/question')
+                console.log("------------------------------------------");
+                console.log(questionCount);
+                console.log(noques);
+                console.log("------------------------------------------");
+
+                if(noques>questionCount){
+                    msg = "Insufficient Questions in the database to start the test.Contact the Admin";
+                    res.render('userform.ejs', {
+                        arr: arr,
+                        arrlength: arrlength,
+                        msg :msg
+                    });
+                }
+
+                else{
+                    msg="";
+                    res.redirect('/question')
+                }
+
                 // res.render('start.ejs', {num: noques, tlimit: time});
             });
 
+
         }
         else {
-            res.render('userform.ejs');
+            res.render('userform.ejs', {
+                arr: arr,
+                arrlength: arrlength,
+                msg:msg
+
+            });
         }
     });
 
@@ -534,6 +591,8 @@ app.use(function (err, req, res, next) {
 
 
 module.exports = app;
+
+
 
 
 

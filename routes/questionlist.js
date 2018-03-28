@@ -6,7 +6,7 @@ var con = mysql.createConnection({
     host: "localhost",
     user: "root",
     password: "mysql12345XXX",
-    database:"project",
+    database:"questionnaire",
     dateStrings : 'date'
 });
 con.connect(function (err) {
@@ -117,8 +117,4 @@ function deleteQuestion(questionstodelete, department) {
 }
 
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 509de12144ba348b30861d077c7ff8669c5d940f
 module.exports = router;

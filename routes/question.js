@@ -7,6 +7,7 @@ var HashMap = require('hashmap');
 var correctans=[];
 router.get('/', function (req, res, next) {
     res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+    if(!req.session.ab1) req.session.ab1=1;
     if(!req.session.abc1) req.session.abc1=true;
     if(!req.session.abc2) req.session.abc2=true;
     if(req.session.abc1){
@@ -14,10 +15,9 @@ router.get('/', function (req, res, next) {
         if(req.session.i=true){
             var connection = mysql.createConnection({
                 host: "localhost",
-     
                 user: "root",
                 password: "mysql12345XXX",
-                database:"project",
+                database:"questionnaire",
                 dateStrings : 'date'
             });
             function con(callback) {
@@ -86,7 +86,10 @@ router.get('/', function (req, res, next) {
                 res.render('question', {
                     rand: req.session.rano,
                     num:req.session.qlimit,
-                    tlimit:req.session.tlimit
+                    tlimit:req.session.tlimit,
+                    name : req.session.name,
+                    dep : req.session.dep
+
                 });
             });
         }

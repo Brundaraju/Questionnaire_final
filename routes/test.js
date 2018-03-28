@@ -8,25 +8,21 @@ var currentnum;
 router.use(bodyParser.urlencoded({extended: false}));
 var connection = mysql.createConnection({
     host: "localhost",
-
     user: "root",
     password: "mysql12345XXX",
-    database:"project",
+    database:"questionnaire",
     dateStrings : 'date'
 });
 
 connection.connect(function (err) {
     if (err) throw err;
 });
-<<<<<<< HEAD
 var tl;
 connection.query("select timelimit from user",function (err,res) {
     if(err) console.log("err");
     tl=res[0].timelimit;
 });
-=======
 
->>>>>>> 509de12144ba348b30861d077c7ff8669c5d940f
 router.get('/', function (req, res, next) {
 
     res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
@@ -65,6 +61,12 @@ router.get('/', function (req, res, next) {
                     }
 
                     search(function (m) {
+                        var l;
+                        if(!req.session.selected) {
+                            l=[];
+                        }else {
+                            l=req.session.selected;
+                        }
                         var qu = rows[m - 1].question;
                         var op1 = rows[m - 1].ans1;
                         var op2 = rows[m - 1].ans2;
@@ -82,15 +84,16 @@ router.get('/', function (req, res, next) {
                             option3: op3,
                             option4: op4,
                             ans: ans,
-<<<<<<< HEAD
                             tl:tl,
                             // img:img,
-=======
-                            tl : req.session.tlimit,                            
->>>>>>> 509de12144ba348b30861d077c7ff8669c5d940f
+                            tl : req.session.tlimit,
                             a: a,
                             b: b,
-                            r: req.session.qlimit
+                            r: req.session.qlimit,
+                            selected:req.session.selected,
+                            selectedc:l.length,
+                            value:req.session.value
+
                         });
                     });
                 }

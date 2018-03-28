@@ -2,33 +2,31 @@ var express = require('express');
 var mysql = require('mysql');
 var router = express.Router();
 
-
 var con = mysql.createConnection({
     host: "localhost",
     user: "root",
     password: "mysql12345XXX",
-    database:"project",
-    dateStrings: 'date'
+    database:"questionnaire",
+    dateStrings : 'date'
 });
 con.connect(function (err) {
     if (err) throw err;
 
 });
 var details;
-var searchDetails ;
-var searchCount ;
+var searchDetails;
+var searchCount;
 
 var searchName = undefined;
-var searchattempt ;
+var searchattempt;
 var attendeeCount;
 
-router.get('/admin/attendeeList/:dept' , function (req, res) {
+router.get('/admin/attendeeList/:dept', function (req, res) {
     var atd = req.query.attendee;
     console.log(10101010101010101010101010110);
     console.log(atd);
     console.log(10101010101010101010101010110);
-    if(atd !== undefined)
-    {
+    if (atd !== undefined) {
         console.log(atd);
         if (typeof atd === "string") {
             var attendeestodelete = [];
@@ -44,13 +42,12 @@ router.get('/admin/attendeeList/:dept' , function (req, res) {
 
     searchDetails = {};
     searchCount = 0;
-    searchattempt =0;
+    searchattempt = 0;
     console.log("start");
     details = attendeeDetails(req, req.params.dept);
     console.log("end");
     searchName = req.query.search;
     console.log(searchName);
-
 
 
     console.log("44444444444444444444444444");
@@ -59,7 +56,7 @@ router.get('/admin/attendeeList/:dept' , function (req, res) {
 
     if (searchName !== undefined) {
         searchFromDatabase(searchName, req.params.dept);
-        searchattempt=1;
+        searchattempt = 1;
     }
     setTimeout(function () {
         //dateCount1 = dates.length;
@@ -67,21 +64,22 @@ router.get('/admin/attendeeList/:dept' , function (req, res) {
 
     }, 1000);
 });
-function renderpage(req,res) {
-    var aDate, aName, aMobile, aEmail, aQuesAns, aRes,aAge,aQ,aE,aKnc,aJob,aSalary;
+
+function renderpage(req, res) {
+    var aDate, aName, aMobile, aEmail, aQuesAns, aRes, aAge, aQ, aE, aKnc, aJob, aSalary;
     aDate = details.aDate;
     aName = details.aName;
     aMobile = details.aMobile;
     aEmail = details.aEmail;
     aQuesAns = details.aQuesAns;
     aRes = details.aRes;
-    aAge=details.aAge;
-    aQ=details.aQ;
-    aE=details.aE;
-    aKnc=details.aKnc;
-    aJob=details.aJob;
-    aSalaryp=details.aSalaryp;
-    aSalarye=details.aSalarye;
+    aAge = details.aAge;
+    aQ = details.aQ;
+    aE = details.aE;
+    aKnc = details.aKnc;
+    aJob = details.aJob;
+    aSalaryp = details.aSalaryp;
+    aSalarye = details.aSalarye;
 
     console.log(details);
     console.log(aDate);
@@ -92,7 +90,7 @@ function renderpage(req,res) {
     console.log(aRes);
 
     if (searchDetails !== undefined && searchattempt === 1) {
-        var sDate, sName, sMobile, sEmail, sQuesAns, sRes,sAge,sQ,sE,sKnc,sJob,sSalaryp,sSalarye;
+        var sDate, sName, sMobile, sEmail, sQuesAns, sRes, sAge, sQ, sE, sKnc, sJob, sSalaryp, sSalarye;
         sDate = searchDetails.sDate;
         sName = searchDetails.sName;
         sMobile = searchDetails.sMobile;
@@ -125,12 +123,12 @@ function renderpage(req,res) {
             aEmail: aEmail,
             aRes: aRes,
             aAge: aAge,
-            aQ : aQ,
-            aE : aE,
+            aQ: aQ,
+            aE: aE,
             aKnc: aKnc,
             aJob: aJob,
-            aSalaryp:aSalaryp,
-            aSalarye:aSalarye,
+            aSalaryp: aSalaryp,
+            aSalarye: aSalarye,
 
 
             sDate: sDate,
@@ -139,20 +137,20 @@ function renderpage(req,res) {
             sEmail: sEmail,
             sRes: sRes,
             sAge: sAge,
-            sQ : sQ,
-            sE : sE,
+            sQ: sQ,
+            sE: sE,
             sKnc: sKnc,
             sJob: sJob,
-            sSalaryp:sSalaryp,
-            sSalarye:sSalarye,
+            sSalaryp: sSalaryp,
+            sSalarye: sSalarye,
             attendeeCount: attendeeCount,
             searchCount: searchCount,
-            searchAttempt : searchattempt
+            searchAttempt: searchattempt
             /* dates : dates,
              dateCount : dateCount1*/
         });
     }
-    else if(searchDetails === undefined && searchattempt === 1){
+    else if (searchDetails === undefined && searchattempt === 1) {
         res.render('attendee', {
             dept: req.params.dept,
             aDate: aDate,
@@ -161,19 +159,19 @@ function renderpage(req,res) {
             aEmail: aEmail,
             aRes: aRes,
             aAge: aAge,
-            aQ : aQ,
-            aE : aE,
+            aQ: aQ,
+            aE: aE,
             aKnc: aKnc,
             aJob: aJob,
-            aSalaryp:aSalaryp,
-            aSalarye:aSalarye,
+            aSalaryp: aSalaryp,
+            aSalarye: aSalarye,
             attendeeCount: attendeeCount,
             searchCount: searchCount,
-            searchAttempt : searchattempt
+            searchAttempt: searchattempt
 
         });
     }
-    else{
+    else {
         res.render('attendee', {
             dept: req.params.dept,
             aDate: aDate,
@@ -182,25 +180,27 @@ function renderpage(req,res) {
             aEmail: aEmail,
             aRes: aRes,
             aAge: aAge,
-            aQ : aQ,
-            aE : aE,
+            aQ: aQ,
+            aE: aE,
             aKnc: aKnc,
             aJob: aJob,
-            aSalaryp:aSalaryp,
-            aSalarye:aSalarye,
+            aSalaryp: aSalaryp,
+            aSalarye: aSalarye,
             attendeeCount: attendeeCount,
             searchCount: searchCount,
-            searchAttempt : searchattempt
+            searchAttempt: searchattempt
 
         });
     }
 
 }
-var sql ="";
+
+var sql = "";
+
 function deleteAttendee(attendeestodelete, department) {
     console.log(attendeestodelete.length);
     for (var i = 0; i < attendeestodelete.length; i++) {
-        sql = "delete from " + department + " where mobile = '"+attendeestodelete[i]+"';";
+        sql = "delete from " + department + " where mobile = '" + attendeestodelete[i] + "';";
         con.query(sql, function (err, result) {
             if (err) throw err;
             console.log("Deleted Attendees from " + department);
@@ -208,10 +208,12 @@ function deleteAttendee(attendeestodelete, department) {
     }
 
 }
-function attendeeDetails(req,department) {
+
+function attendeeDetails(req, department) {
 
 
-    var aDate = [], aName = [], aMobile = [], aEmail = [], aQuesAns = [], aRes = [], aAge=[], aQ=[], aE=[], aKnc=[], aJob=[], aSalaryp=[], aSalarye=[];
+    var aDate = [], aName = [], aMobile = [], aEmail = [], aQuesAns = [], aRes = [], aAge = [], aQ = [], aE = [],
+        aKnc = [], aJob = [], aSalaryp = [], aSalarye = [];
     sql = "select count(*) as count from " + department;
     con.query(sql, function (err, result) {
         if (err) throw err;
@@ -226,21 +228,21 @@ function attendeeDetails(req,department) {
         console.log("Attendee Details");
         console.log(result);
         for (var i = attendeeCount - 1, j = 0; i >= 0; i--, j++) {
-            var sli =  result[i].date;
+            var sli = result[i].date;
 
-            aDate[j] = sli.toString().slice(0,25);
+            aDate[j] = sli.toString().slice(0, 25);
             aName[j] = result[i].name;
             aMobile[j] = result[i].mobile;
             aEmail[j] = result[i].email;
             aQuesAns[j] = result[i].questionid;
             aRes[j] = result[i].result;
-            aAge[j]= result[i].age;
-            aQ[j]= result[i].qualifications;
-            aE[j]= result[i].experience;
-            aKnc[j]= result[i].knc;
-            aJob[j]= result[i].job;
-            aSalaryp[j]= result[i].salaryp;
-            aSalarye[j]= result[i].salarye;
+            aAge[j] = result[i].age;
+            aQ[j] = result[i].qualifications;
+            aE[j] = result[i].experience;
+            aKnc[j] = result[i].knc;
+            aJob[j] = result[i].job;
+            aSalaryp[j] = result[i].salaryp;
+            aSalarye[j] = result[i].salarye;
 
         }
         details = {
@@ -251,12 +253,12 @@ function attendeeDetails(req,department) {
             aQuesAns: aQuesAns,
             aRes: aRes,
             aAge: aAge,
-            aQ : aQ,
-            aE : aE,
+            aQ: aQ,
+            aE: aE,
             aKnc: aKnc,
             aJob: aJob,
-            aSalaryp:aSalaryp,
-            aSalarye:aSalarye
+            aSalaryp: aSalaryp,
+            aSalarye: aSalarye
         };
 
     });
@@ -265,17 +267,20 @@ function attendeeDetails(req,department) {
     }, 200);
 
 }
+
 function searchFromDatabase(searchName, department) {
-    var sDate = [], sName = [], sMobile = [], sEmail = [], sQuesAns = [], sRes = [], sAge=[], sQ=[], sE=[], sKnc=[], sJob=[], sSalaryp=[],sSalarye=[];
+    var sDate = [], sName = [], sMobile = [], sEmail = [], sQuesAns = [], sRes = [], sAge = [], sQ = [], sE = [],
+        sKnc = [], sJob = [], sSalaryp = [], sSalarye = [];
 
-    var flag =0;
+    var flag = 0;
 
 
-    var j=0;
+    var j = 0;
     console.log("9999999999999999999999999");
     console.log(searchName);
     console.log("9999999999999999999999999");
-    function show (callback) {
+
+    function show(callback) {
         sql = "select count(*) as count from " + department + " where mobile = '" + searchName + "';";
         con.query(sql, function (err, result) {
             if (err) throw err;
@@ -286,14 +291,13 @@ function searchFromDatabase(searchName, department) {
         con.query(sql, function (err, result) {
             if (err) throw err;
 
-            else
-            {
+            else {
                 console.log("0000000000000000000000000000000000");
                 console.log(result);
                 console.log("0000000000000000000000000000000000");
-                if(result.length >0){
+                if (result.length > 0) {
 
-                    flag =1;
+                    flag = 1;
                     for (var i = searchCount - 1, j = 0; i >= 0; i--, j++) {
                         sDate[j] = result[i].date;
                         sName[j] = result[i].name;
@@ -301,13 +305,13 @@ function searchFromDatabase(searchName, department) {
                         sEmail[j] = result[i].email;
                         sQuesAns[j] = result[i].questionid;
                         sRes[j] = result[i].result;
-                        sAge[j]= result[i].age;
-                        sQ[j]= result[i].qualifications;
-                        sE[j]= result[i].experience;
-                        sKnc[j]= result[i].knc;
-                        sJob[j]= result[i].job;
-                        sSalaryp[j]= result[i].salaryp;
-                        sSalarye[j]= result[i].salarye;
+                        sAge[j] = result[i].age;
+                        sQ[j] = result[i].qualifications;
+                        sE[j] = result[i].experience;
+                        sKnc[j] = result[i].knc;
+                        sJob[j] = result[i].job;
+                        sSalaryp[j] = result[i].salaryp;
+                        sSalarye[j] = result[i].salarye;
                     }
 
                     searchDetails = {
@@ -317,12 +321,12 @@ function searchFromDatabase(searchName, department) {
                         sEmail: sEmail,
                         sQuesAns: sQuesAns,
                         sAge: sAge,
-                        sQ : sQ,
-                        sE : sE,
+                        sQ: sQ,
+                        sE: sE,
                         sKnc: sKnc,
                         sJob: sJob,
-                        sSalaryp:sSalaryp,
-                        sSalarye:sSalarye,
+                        sSalaryp: sSalaryp,
+                        sSalarye: sSalarye,
                         sRes: sRes
                     };
                 }
@@ -334,8 +338,7 @@ function searchFromDatabase(searchName, department) {
 
     show(function () {
 
-        if(flag === 0)
-        {
+        if (flag === 0) {
 
             sql = "select count(*) as count from " + department + " where name LIKE '%" + searchName + "%';";
             con.query(sql, function (err, result) {
@@ -354,13 +357,13 @@ function searchFromDatabase(searchName, department) {
                     sEmail[j] = result[i].email;
                     sQuesAns[j] = result[i].questionid;
                     sRes[j] = result[i].result;
-                    sAge[j]= result[i].age;
-                    sQ[j]= result[i].qualifications;
-                    sE[j]= result[i].experience;
-                    sKnc[j]= result[i].knc;
-                    sJob[j]= result[i].job;
-                    sSalaryp[j]= result[i].salaryp;
-                    sSalarye[j]= result[i].salarye;
+                    sAge[j] = result[i].age;
+                    sQ[j] = result[i].qualifications;
+                    sE[j] = result[i].experience;
+                    sKnc[j] = result[i].knc;
+                    sJob[j] = result[i].job;
+                    sSalaryp[j] = result[i].salaryp;
+                    sSalarye[j] = result[i].salarye;
                 }
                 searchDetails = {
                     sDate: sDate,
@@ -370,12 +373,12 @@ function searchFromDatabase(searchName, department) {
                     sQuesAns: sQuesAns,
                     sRes: sRes,
                     sAge: sAge,
-                    sQ : sQ,
-                    sE : sE,
+                    sQ: sQ,
+                    sE: sE,
                     sKnc: sKnc,
                     sJob: sJob,
-                    sSalaryp:sSalaryp,
-                    sSalarye:sSalarye
+                    sSalaryp: sSalaryp,
+                    sSalarye: sSalarye
                 };
                 console.log(searchDetails);
             });
@@ -387,4 +390,5 @@ function searchFromDatabase(searchName, department) {
         return searchDetails;
     }, 200);
 }
+
 module.exports = router;
