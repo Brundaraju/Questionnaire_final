@@ -44,7 +44,8 @@ router.get('/', function (req, res, next) {
         } else {
             function first(callback) {
                 
-                
+                var corans=req.session.corans;
+                req.session.score=corans.size;
                 score = req.session.score;
                 var abc = JSON.stringify(req.session.que);
                 console.log(abc);
