@@ -50,13 +50,20 @@ router.get('/', function (req, res, next) {
             console.log("correct");
             corans.set(a, correctans[i]);
             req.session.corans=corans;
-            req.session.score=corans.count();
+            // req.session.score=corans.count();
             console.log(req.session.corans);
+            console.log(req.session.incorrectmap);
         }
         else if(a === key[i] ){
+            if(corans.has(a)){
+                corans.delete(a);
+                req.session.corans=corans;
+            }
             console.log("incorrect");
             incorans.set(a, correctans[i]);
             req.session.incorrectmap=incorans;
+            console.log(req.session.corans);
+            console.log(req.session.incorrectmap);
         }
     }
     res.redirect("/test?questionnumber=" + n);
